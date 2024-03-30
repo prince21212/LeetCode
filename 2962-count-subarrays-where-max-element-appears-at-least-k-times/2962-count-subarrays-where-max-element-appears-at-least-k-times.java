@@ -27,23 +27,4 @@ class Solution {
         return ans;
     }
 }
-   /*int max = 0;
-        for(int num: nums) {
-            max = Math.max(max,num);
-        }
-        int freq = 0;
-        long res = 0;
-        int i = 0;
-        int j =0;
-        while(j<nums.length) {
-            if(nums[j]==max)
-               freq++;
-            while(freq>=k) {
-                res+=nums.length-j;
-                if(nums[i]==max)
-                    freq--;
-                i++;
-            }
-            j++;
-        }
-        return res;*/
+   
