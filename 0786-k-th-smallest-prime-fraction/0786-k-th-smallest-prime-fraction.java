@@ -1,50 +1,40 @@
 class Solution {
     public int[] kthSmallestPrimeFraction(int[] arr, int k) {
         int n = arr.length;
-        double left = 0, right = 1.0;
-        
-        // Binary search for finding the kth smallest prime fraction
-        while (left < right) {
-            // Calculate the middle value
-            double mid = (left + right) / 2;
-            
-            // Initialize variables to keep track of maximum fraction and indices
-            double maxFraction = 0.0;
-            int totalSmallerFractions = 0, numeratorIdx = 0, denominatorIdx = 0;
-            int j = 1;
-            
-            // Iterate through the array to find fractions smaller than mid
-            for (int i = 0; i < n - 1; i++) {
-                while (j < n && arr[i] >= mid * arr[j]) {
-                    j++;
+        double left = 0, right = 1, mid;
+        int[] res = new int[2];
+
+        while (left <= right) {
+            mid = left + (right - left) / 2;
+            int j = 1, total = 0, num = 0, den = 0;
+            double maxFrac = 0;
+            for (int i = 0; i < n; ++i) {
+                while (j < n && arr[i] >= arr[j] * mid) {
+                    ++j;
                 }
+                
+                total += n - j;
 
-                // Count smaller fractions
-                totalSmallerFractions += (n - j);
-
-                // If we have exhausted the array, break
-                if (j == n) break;
-
-                // Calculate the fraction
-                double fraction = (double) arr[i] / arr[j];
-
-                // Update maxFraction and indices if necessary
-                if (fraction > maxFraction) {
-                    numeratorIdx = i;
-                    denominatorIdx = j;
-                    maxFraction = fraction;
+                if (j < n && maxFrac < arr[i] * 1.0 / arr[j]) {
+                    maxFrac = arr[i] * 1.0 / arr[j];
+                    num = i;
+                    den = j;
                 }
             }
 
-            // Check if we have found the kth smallest prime fraction
-            if (totalSmallerFractions == k) {
-                return new int[]{arr[numeratorIdx], arr[denominatorIdx]};
-            } else if (totalSmallerFractions > k) {
-                right = mid; // Adjust the range for binary search
+            if (total == k) {
+                res[0] = arr[num];
+                res[1] = arr[den];
+                break;
+            }
+
+            if (total > k) {
+                right = mid;
             } else {
-                left = mid; // Adjust the range for binary search
+                left = mid;
             }
         }
-        return new int[]{}; // Return empty array if kth smallest prime fraction not found
+
+        return res;
     }
 }
