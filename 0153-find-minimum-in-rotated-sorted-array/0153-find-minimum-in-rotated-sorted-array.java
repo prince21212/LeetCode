@@ -5,7 +5,7 @@ class Solution {
             return nums[0];
         }
         int left=0,right = n-1;
-        int ans = nums[n-1];
+        int ans = Integer.MAX_VALUE;
         while(left <= right){
             int mid = left +(right - left)/2;
             
