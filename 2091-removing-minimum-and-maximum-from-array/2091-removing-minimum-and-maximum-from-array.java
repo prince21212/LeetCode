@@ -36,6 +36,6 @@ class Solution {
         // Math.min because we find the closest end for min and max respectively and sum them
 
         // Return the minimum deletions required among the three strategies
-        return Math.min(front, Math.min(back, middle));
+        return Math.min(back, Math.min(front, middle));
     }
 }
