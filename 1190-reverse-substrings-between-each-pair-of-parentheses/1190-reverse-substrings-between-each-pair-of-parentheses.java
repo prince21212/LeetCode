@@ -1,34 +1,35 @@
 class Solution {
     public String reverseParentheses(String s) {
-       Stack<Character> stack = new Stack<>();
+       Stack<Integer> stack = new Stack<>();
+        StringBuilder res = new StringBuilder();
+        int arr[] = new int[s.length()];
         
-        for (char c : s.toCharArray()) {
-            if (c == ')') {
-                // We need to reverse the substring within the parenthesis
-                List<Character> temp = new ArrayList<>();
-                
-                // Pop characters until we find the matching '('
-                while (stack.peek() != '(') {
-                    temp.add(stack.pop());
-                }
-                stack.pop(); // pop the '('
-                
-                // Push the reversed substring back onto the stack
-                for (char ch : temp) {
-                    stack.push(ch);
-                }
-            } else {
-                // Push the current character onto the stack
-                stack.push(c);
+        for(int i =0; i < s.length() ; i++)
+        {
+            char ch = s.charAt(i);
+            if(ch == '('){
+                stack.push(i);
             }
-        }
+            else if(ch == ')'){
+                int openIndex = stack.pop();
+                arr[openIndex] = i;
+                arr[i] = openIndex;
+            }
+        }        
         
-        // Build the final result from the stack
-        StringBuilder result = new StringBuilder();
-        for (char c : stack) {
-            result.append(c);
+        int dir =1;
+        int i =0;
+        while(i < s.length()){
+            char ch = s.charAt(i);
+            if(ch == '(' || ch == ')'){
+                i = arr[i];
+                dir = -1 * dir;
+            }
+            else{
+                res.append(ch);
+            }
+            i += dir;
         }
-        
-        return result.toString();
+        return res.toString();
     }
 }
