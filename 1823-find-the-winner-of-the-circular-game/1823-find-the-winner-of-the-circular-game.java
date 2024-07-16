@@ -1,5 +1,8 @@
 class Solution {
     public int findTheWinner(int n, int k) {
+        /* TC :O(N^2)
+           SC :O(N)
+           solution 1:
         // ArrayList<Integer> list = new ArrayList<>();
         // for(int i =1; i <= n; i++){
         //     list.add(i);
@@ -10,6 +13,11 @@ class Solution {
         //     list.remove(index);
         // }
         // return list.get(0);
+        */
+        /*
+        tc:O(n)
+        sc:O(1)
+        */
         int ans =0;
         for(int i = 2; i <= n; i++){
             ans = (ans + k) % i;
